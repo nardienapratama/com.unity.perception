@@ -78,7 +78,7 @@ namespace UnityEngine.Perception.Randomization.Scenarios
         /// <inheritdoc/>
         protected override void OnIdle()
         {
-            if (!Manager.FinalUploadsDone)
+            if (Manager.FinalUploadsDone)
                 Quit();
         }
 

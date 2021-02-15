@@ -244,8 +244,11 @@ namespace UnityEngine.Perception.Randomization.Scenarios
         /// <summary>
         /// Restart the scenario
         /// </summary>
-        protected void Restart()
+        public void Restart()
         {
+            if (state != State.Idle)
+                throw new ScenarioException(
+                    "A Scenario cannot be restarted until it is finished and has entered the Idle state");
             currentIteration = 0;
             currentIterationFrame = 0;
             framesSinceInitialization = 0;
