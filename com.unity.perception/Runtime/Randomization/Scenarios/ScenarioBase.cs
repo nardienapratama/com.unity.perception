@@ -200,7 +200,7 @@ namespace UnityEngine.Perception.Randomization.Scenarios
         protected virtual void OnAwake() { }
 
         /// <summary>
-        /// OnStart is called after OnInitialize but before the first Update method call
+        /// OnStart is called when the scenario first begins playing
         /// </summary>
         protected virtual void OnStart()
         {
@@ -267,11 +267,6 @@ namespace UnityEngine.Perception.Randomization.Scenarios
             foreach (var randomizer in m_Randomizers)
                 randomizer.Awake();
             ValidateParameters();
-        }
-
-        void Start()
-        {
-            Debug.Log($"Start: frame = {Time.frameCount}");
         }
 
         /// <summary>
