@@ -200,14 +200,20 @@ namespace UnityEngine.Perception.Randomization.Scenarios
         protected virtual void OnAwake() { }
 
         /// <summary>
-        /// OnStart is called when the scenario first begins playing
+        /// OnConfigurationImport is called before OnStart in the same frame. This method by default loads a scenario
+        /// settings from a file before the scenario begins.
         /// </summary>
-        protected virtual void OnStart()
+        protected virtual void OnConfigurationImport()
         {
 #if !UNITY_EDITOR
             DeserializeFromCommandLineArg();
 #endif
         }
+
+        /// <summary>
+        /// OnStart is called when the scenario first begins playing
+        /// </summary>
+        protected virtual void OnStart() { }
 
         /// <summary>
         /// OnIterationStart is called before a new iteration begins
@@ -292,6 +298,7 @@ namespace UnityEngine.Perception.Randomization.Scenarios
                 case State.Initializing:
                     if (isScenarioReadyToStart)
                     {
+                        OnConfigurationImport();
                         state = State.Playing;
                         OnStart();
                         foreach (var randomizer in m_Randomizers)
@@ -341,6 +348,7 @@ namespace UnityEngine.Perception.Randomization.Scenarios
             // Perform new iteration tasks
             if (currentIterationFrame == 0)
             {
+                ResetRandomStateOnIteration();
                 OnIterationStart();
                 foreach (var randomizer in activeRandomizers)
                     randomizer.IterationStart();
