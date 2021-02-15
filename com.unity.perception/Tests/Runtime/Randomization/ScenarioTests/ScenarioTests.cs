@@ -106,10 +106,10 @@ namespace RandomizationTests
             yield return CreateNewScenario(iterationCount, 1);
             for (var i = 0; i < iterationCount; i++)
             {
-                Assert.False(m_Scenario.isScenarioComplete);
+                Assert.False(m_Scenario.state == ScenarioBase.State.Playing);
                 yield return null;
             }
-            Assert.True(m_Scenario.isScenarioComplete);
+            Assert.True(m_Scenario.state == ScenarioBase.State.Idle);
         }
 
         [UnityTest]
